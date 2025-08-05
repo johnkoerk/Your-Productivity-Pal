@@ -1,4 +1,6 @@
 import customtkinter as ctk
+from logic.habit_manager import HabitManager
+from logic.reminder_manager import ReminderManager
 from ui.dashboard_page import Dashboard
 from ui.calendar_page import Calendar
 from ui.chatbot_page import Chatbot
@@ -10,6 +12,9 @@ class Framework(ctk.CTk):
         self.title("Personal AI Buddy")
         self.geometry("900x600")
         self.resizable(False, False)
+
+        self.habit_manager = HabitManager()
+        self.reminder_manager = ReminderManager(self, self.habit_manager)
 
         # creates container frame for pages and sets it to fill whole window
         container = ctk.CTkFrame(self)
@@ -29,6 +34,8 @@ class Framework(ctk.CTk):
             frame.grid(row=0, column=0, sticky="nsew")
 
         self.show_frame("Dashboard") #initializes Dashboard page to front
+
+        self.after(500, self.reminder_manager.show_daily_reminder)
 
     # switches to the selected page to display in front
     def show_frame(self, page_name):

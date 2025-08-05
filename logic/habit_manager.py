@@ -26,3 +26,7 @@ class HabitManager:
 
     def get_all_habits(self):
         return self.habits #returns full list of habits
+    
+    def get_habits_due_today(self):
+        self.load_habits()
+        return [habit for habit in self.habits if habit.is_scheduled_for_today()] #returns list of habits to be performed today

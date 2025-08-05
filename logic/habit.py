@@ -3,12 +3,11 @@ from datetime import date
 class Habit:
     # initializes information for new Habit
     # FIXME return here to edit automatic initialization
-    def __init__(self, title, start_date, end_date=None, description='', cycle='daily', consistency_goal=None): 
+    def __init__(self, title, days, start_date, description='', consistency_goal=None): 
         self.title = title
         self.description = description
+        self.days = days
         self.start_date = start_date
-        self.end_date = end_date
-        self.cycle = cycle
         self.consistency_goal = consistency_goal
         self.completions = [] #list of dates habit was marked complete, always starts empty
 
@@ -27,9 +26,8 @@ class Habit:
         return {
             'title': self.title,
             'description': self.description,
+            'days': self.days,
             'start_date': self.start_date.isoformat(), #date is converted to standard YYYY-MM-DD format
-            'end_date': self.end_date.isoformat() if self.end_date else None, #date is converted if present, otherwise left empty
-            'cycle': self.cycle,
             'consistency_goal': self.consistency_goal,
             'completions': [completion.isoformat() for completion in self.completions] #converts all completion dates to standard format
         }
@@ -40,9 +38,13 @@ class Habit:
             title = data['title'],
             description = data['description'],
             start_date = date.fromisoformat(data['start_date']), #converts date from standard YYYY-MM-DD format to date object
-            end_date = date.fromisoformat(data['end_date']) if data['end_date'] else None, #date is converted if present, otherwise left empty
-            cycle = data['cycle'],
+            days = data['days'],
             consistency_goal = data['consistency_goal']
         )
         habit.completions = [date.fromisoformat(completion) for completion in data['completions']] #converts all completion dates from standard format
         return habit
+    
+    # checks if habit is scheduled for today
+    def is_scheduled_for_today(self):
+        today_name = date.today().strftime("%A")
+        return today_name in self.days
