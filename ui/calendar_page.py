@@ -11,9 +11,6 @@ class Calendar(ctk.CTkFrame):
         label = ctk.CTkLabel(self, text="Calendar", font=("Arial", 24))
         label.pack(pady=20)
 
-        # creates and sets Home button
-        ctk.CTkButton(self, text="Home", command=lambda: controller.show_frame("Dashboard")).pack(pady=10)
-
         # prepares year and month in preparation for calendar display
         self.current_date = datetime.now()
         self.year = self.current_date.year

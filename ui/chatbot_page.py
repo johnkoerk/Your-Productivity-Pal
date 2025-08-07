@@ -18,9 +18,6 @@ class Chatbot(ctk.CTkFrame):
         label = ctk.CTkLabel(self, text="Chatbot", font=("Arial", 24))
         label.pack(pady=20)
 
-        # creates and sets Home button
-        ctk.CTkButton(self, text="Home", command=lambda: controller.show_frame("Dashboard")).pack(pady=10)
-
         # creates and sets chat display
         self.chat_display = ctk.CTkTextbox(self, height=400, state="disabled", wrap="word") #user can't type in it and long text wraps
         self.chat_display.pack(fill="both", expand=True, padx=10, pady=10)

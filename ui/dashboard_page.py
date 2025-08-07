@@ -11,14 +11,6 @@ class Dashboard(ctk.CTkFrame):
         label = ctk.CTkLabel(self, text="Habit Overview", font=("Arial", 24))
         label.pack(pady=20)
 
-        # creates and sets navigation bar
-        nav_frame = ctk.CTkFrame(self)
-        nav_frame.pack(pady=10)
-
-        # creates and sets navigation bar buttons
-        ctk.CTkButton(nav_frame, text="Calendar", command=lambda: controller.show_frame("Calendar")).pack(side="left", padx=10)
-        ctk.CTkButton(nav_frame, text="Chatbot", command=lambda: controller.show_frame("Chatbot")).pack(side="left", padx=10)
-
         # creates and sets frame for habit cards
         self.habit_cards_frame = ctk.CTkFrame(self)
         self.habit_cards_frame.pack(fill="both", expand=True, padx=20, pady=10)
