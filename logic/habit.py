@@ -3,12 +3,11 @@ from datetime import date
 class Habit:
     # initializes information for new Habit
     # FIXME return here to edit automatic initialization
-    def __init__(self, title, days, start_date, description='', consistency_goal=None): 
+    def __init__(self, title, days, start_date=date.today(), description=''): 
         self.title = title
         self.description = description
         self.days = days
         self.start_date = start_date
-        self.consistency_goal = consistency_goal
         self.completions = [] #list of dates habit was marked complete, always starts empty
 
     # function for recording completions when habit is marked complete
@@ -28,7 +27,6 @@ class Habit:
             'description': self.description,
             'days': self.days,
             'start_date': self.start_date.isoformat(), #date is converted to standard YYYY-MM-DD format
-            'consistency_goal': self.consistency_goal,
             'completions': [completion.isoformat() for completion in self.completions] #converts all completion dates to standard format
         }
 
@@ -38,8 +36,7 @@ class Habit:
             title = data['title'],
             description = data['description'],
             start_date = date.fromisoformat(data['start_date']), #converts date from standard YYYY-MM-DD format to date object
-            days = data['days'],
-            consistency_goal = data['consistency_goal']
+            days = data['days']
         )
         habit.completions = [date.fromisoformat(completion) for completion in data['completions']] #converts all completion dates from standard format
         return habit

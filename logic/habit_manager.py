@@ -24,6 +24,10 @@ class HabitManager:
         except FileNotFoundError:
             self.habits = [] #habits list remains empty if previous data does not exist
 
+    def delete_habit(self, habit):
+        self.habits = [h for h in self.habits if h.title != habit.title] #recreates list of habits excluding habit being deleted
+        self.save_habits()
+
     def get_all_habits(self):
         return self.habits #returns full list of habits
     

@@ -35,7 +35,7 @@ class Dashboard(ctk.CTkFrame):
             widget.destroy()
         # freshly creates and displays all habit cards
         for habit in self.habit_manager.get_all_habits():
-            card = HabitCard(self.habit_cards_frame, habit)
+            card = HabitCard(self.habit_cards_frame, habit, self.habit_manager, self)
             card.pack(fill="x", pady=5, padx=5)
 
     def display_habit_creation(self):

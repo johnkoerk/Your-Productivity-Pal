@@ -15,10 +15,6 @@ class HabitCreation(ctk.CTkFrame):
         self.description_entry = ctk.CTkEntry(self, placeholder_text="Description (optional)")
         self.description_entry.pack(pady=10)
 
-        # creates and sets entry for start date
-        self.start_date_entry = ctk.CTkEntry(self, placeholder_text="Start Date (YYYY-MM-DD)")
-        self.start_date_entry.pack(pady=10)
-
         # creates and sets checkboxes for days of the week
         self.days_selected = []
         days_frame = ctk.CTkFrame(self)
@@ -29,37 +25,24 @@ class HabitCreation(ctk.CTkFrame):
             checkbox = ctk.CTkCheckBox(days_frame, text=day, variable=var)
             checkbox.pack(anchor="w")
             self.days_vars[day] = var #dictionary to track boolean variables for each day
-        
-        # creates and sets entry for consistency goal
-        self.goal_entry = ctk.CTkEntry(self, placeholder_text="Consistency Goal (optional)")
-        self.goal_entry.pack(pady=10)
 
         # creates and sets create button
         create_button = ctk.CTkButton(self, text="Create", command=self.create_habit)
         create_button.pack(pady=10)
 
         # creates and sets cancel button
-        cancel_button = ctk.CTkButton(self, text="Cancel", command=self.destroy())
+        cancel_button = ctk.CTkButton(self, text="Cancel", command=self.destroy)
         cancel_button.pack(pady=10)
 
     def create_habit(self):
         # gathers input data and stores them in variables
         title = self.title_entry.get()
         description = self.description_entry.get()
-        start_date = self.start_date_entry.get()
-        goal = self.goal_entry.get()
-
-        # attempts to convert start date string to date object
-        try:
-            start_date = date.fromisoformat(start_date)
-        except ValueError: # catches invalid date format
-            print("Invalid date format. Use YYYY-MM-DD.")
-            return
         
         selected_days = [day for day, var in self.days_vars.items() if var.get()] #gathers just selected days from checkboxes into list
 
         # ensures all required fields are filled out    
-        if not title or not selected_days or not start_date:
+        if not title or not selected_days:
             print("Please fill in all required fields :)")
             return
 
@@ -68,8 +51,6 @@ class HabitCreation(ctk.CTkFrame):
             title=title,
             description=description,
             days=selected_days,
-            start_date=start_date,
-            consistency_goal=int(goal) if goal else None
         )
         self.controller.habit_manager.add_habit(habit)
 
