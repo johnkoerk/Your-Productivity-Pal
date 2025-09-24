@@ -1,1 +1,1 @@
-# Personal-AI-Buddy
+# Your-Productivity-Pal
